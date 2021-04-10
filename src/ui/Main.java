@@ -4,18 +4,23 @@ import model.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
+import Exception.DocumentTypeException;
+import Exception.NumberException;
+
 import java.time.LocalDate;
 
 public class Main {
 
 	private Scanner sc;
 	public Customer customer;
-	private int date;
+	
 	private List<Customer> customerList;
 	private int counter;
 	
 	public Main(){
 		customerList=new ArrayList<>();
+		customer= new Customer();
 		sc=new Scanner(System.in);
 	}
 	
@@ -66,11 +71,13 @@ public class Main {
 		
 		
 		public void customerRegister() {
-		String msg="El Cliente no puede ingresar";
+		try {
+		int date;
+		
 		int option=0;
 		String id="";
 		counter++;
-		DocumentType type=null;
+		String type="";
 		System.out.println(
 				"seleccione el tipo de documento \n"+
 				"(1) Para Tarjeta de Identidad \n"+
@@ -82,16 +89,16 @@ public class Main {
 		sc.nextLine();
 		switch(option) {
         case 1:
-        	type=(DocumentType.TI);
+        	type="TI";
             break;
         case 2:
-        	type=(DocumentType.CC);
+        	type="CC";
             break;
         case 3:
-        	type=(DocumentType.PP);
+        	type="PP";
             break;
         case 4:
-        	type=(DocumentType.CE);
+        	type="CE";
             break;
         default:
         	System.out.println("opcion erronea");
@@ -103,21 +110,14 @@ public class Main {
 		date=LocalDate.now().getDayOfMonth();
 		
 		
-		int temp=Character.getNumericValue(id.charAt(id.length()-2));
-
-		if(type!=(DocumentType.TI)) {
-			if((date%2==0 && temp%2!=0)||(date%2!=0 && temp%2==0)) {
-				customerList.add(new Customer(id, type));
-				msg="El cliente puede ingresar";
-			}
-		}
-		else {
-			System.out.println("el usuario es menor de edad");
-		}
-
 		
-		System.out.println(msg);
-		System.out.println("");
+			customer.addPerson(id, type, date);
+		} catch (DocumentTypeException | NumberException e) {
+			
+			e.printStackTrace();
+		}
+		
+
 		}
 		
 }
