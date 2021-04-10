@@ -15,11 +15,11 @@ public class Main {
 	private Scanner sc;
 	public Customer customer;
 	
-	private List<Customer> customerList;
+	
 	private int counter;
 	
 	public Main(){
-		customerList=new ArrayList<>();
+		
 		customer= new Customer();
 		sc=new Scanner(System.in);
 	}
@@ -112,9 +112,12 @@ public class Main {
 		
 		
 			customer.addPerson(id, type, date);
-		} catch (DocumentTypeException | NumberException e) {
+		} catch (DocumentTypeException e) {
 			
 			e.printStackTrace();
+		}catch (NumberException i) {
+
+			i.printStackTrace();
 		}
 		
 

@@ -32,13 +32,14 @@ public class Customer {
 	}
 	
 	
-	public void addPerson( String id,  String documentType, int date) throws DocumentTypeException, NumberException{
+	public Boolean addPerson( String id,  String documentType, int date) throws DocumentTypeException, NumberException{
 		
-		
+		boolean out=false;
 		int temp=Character.getNumericValue(id.charAt(id.length()-2));
 
 		if(!documentType.equals("TI")) {
 			if((date%2==0 && temp%2!=0)||(date%2!=0 && temp%2==0)) {
+				out = true;
 				System.out.println("El usuario puede entrar");
 			}else {
 				throw new NumberException(date);
@@ -49,6 +50,7 @@ public class Customer {
 			throw new DocumentTypeException(documentType);
 			
 		}
+		return out;
 	}
 	
 
